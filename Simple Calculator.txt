@@ -1,0 +1,165 @@
+Simple Calculator 
+Definition of Problem 
+Write a program that calculates of the result for a given mathematical expression. The input will be given as a string that contains integer numbers and operators,  as an example, if the input is “5+50*20/25-15” the result should be calculated as 30. 
+ 
+Rules & Constraints 
+- Input will not contain blanks - Only the positive integer numbers will be input - The operators are “+, -, /, *” and the priority of the operators should be considered - The result can be a real number or negative 
+ 
+The solution will be evaluated not only with the results the quality of the code is also important. 
+the code should be created by yourself. 
+ 
+Examples; 
+1) Input: “5+50*20/25-15”  Output: 30  
+2) Input: “3+5*7-5/5”   Output: 37  
+3) Input: “0*5”    Output: 0  
+4) Input: “3*1-1”    Output: 2  
+5) Input: “4/8”    Output: 0.5  
+6) Input: “8/4-2*2”   Output: -2 
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+
+
+struct Term
+{
+    double number;
+    char operation;
+};
+
+
+vector<Term> parseEquation(string equationString);
+void simplifyEquation(vector<Term> &equation);
+void simplifyEquation(vector<Term> &equation, const char &operation);
+void printEquation(const vector<Term> &equation);
+
+int main()
+{
+    string equationString;
+    vector<Term> equation;
+
+    cout << "Enter an equation: " << endl;
+    cin >> equationString;
+
+    equation = parseEquation(equationString);
+
+    while(equation.size() > 1)
+    {
+        simplifyEquation(equation);
+    }
+
+    cout << "= ";
+    printEquation(equation);
+    cout << endl;
+
+    return 0;
+}
+
+vector<Term>parseEquation(string equationString)
+{
+    string::size_type location = 0;
+    vector<Term> equation;
+
+    while(true)
+    {
+        Term term;
+
+        term.number = stod(equationString, &location);
+        if(location <= equationString.size())
+        {
+            term.operation = equationString[location];
+        }
+        else
+        {
+            term.operation = '\0';
+        }
+
+        equation.push_back(term);
+
+        if(term.operation == '\0')
+        {
+            return equation;
+        }
+        else
+        {
+            equationString = equationString.substr(location + 1);
+        }
+    }
+}
+
+void simplifyEquation(vector<Term> &equation)
+{
+    auto originalSize = equation.size();
+
+    simplifyEquation(equation, '*'); if(equation.size() != originalSize) return;
+    simplifyEquation(equation, '/'); if(equation.size() != originalSize) return;
+    simplifyEquation(equation, '+'); if(equation.size() != originalSize) return;
+    simplifyEquation(equation, '-'); if(equation.size() != originalSize) return;
+
+}
+
+void simplifyEquation(vector<Term> &equation, const char &operation)
+{
+    vector<Term> result;
+
+    for(auto i = equation.begin(); i != equation.end(); i++)
+    {
+        if(i->operation == operation)
+        {
+            Term currentTerm = *i;
+            Term nextTerm = *(++i);
+            Term newTerm;
+
+            if(operation == '+')
+            {
+                newTerm.number = currentTerm.number + nextTerm.number;
+            }
+            else if(operation == '-')
+            {
+                newTerm.number = currentTerm.number - nextTerm.number;
+            }
+            else if(operation == '*')
+            {
+                newTerm.number = currentTerm.number * nextTerm.number;
+            }
+            else if(operation == '/')
+            {
+                newTerm.number = currentTerm.number / nextTerm.number;
+            }
+
+            newTerm.operation = nextTerm.operation;
+
+            result.push_back(newTerm);
+
+        }
+        else
+        {
+            result.push_back(*i);
+        }
+    }
+
+    equation = result;
+}
+
+void printEquation(const vector<Term> &equation)
+{
+    for(const Term& term : equation)
+    {
+        cout << term.number;
+
+        if(term.operation == '\0')
+        {
+            return;
+        }
+        else
+        {
+            cout << term.operation;
+        }
+    }
+}
+
+ 
