@@ -1,20 +1,13 @@
-Simple Calculator 
-Definition of Problem 
-Write a program that calculates of the result for a given mathematical expression. The input will be given as a string that contains integer numbers and operators,  as an example, if the input is “5+50*20/25-15” the result should be calculated as 30. 
- 
-Rules & Constraints 
-- Input will not contain blanks - Only the positive integer numbers will be input - The operators are “+, -, /, *” and the priority of the operators should be considered - The result can be a real number or negative 
- 
-The solution will be evaluated not only with the results the quality of the code is also important. 
-the code should be created by yourself. 
+
+
  
 Examples; 
-1) Input: “5+50*20/25-15”  Output: 30  
-2) Input: “3+5*7-5/5”   Output: 37  
-3) Input: “0*5”    Output: 0  
-4) Input: “3*1-1”    Output: 2  
-5) Input: “4/8”    Output: 0.5  
-6) Input: “8/4-2*2”   Output: -2 
+1) Input: â€œ5+50*20/25-15â€  Output: 30  
+2) Input: â€œ3+5*7-5/5â€   Output: 37  
+3) Input: â€œ0*5â€    Output: 0  
+4) Input: â€œ3*1-1â€    Output: 2  
+5) Input: â€œ4/8â€    Output: 0.5  
+6) Input: â€œ8/4-2*2â€   Output: -2 
 
 
 #include <iostream>
